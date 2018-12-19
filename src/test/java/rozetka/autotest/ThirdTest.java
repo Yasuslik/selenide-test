@@ -27,7 +27,7 @@ public class ThirdTest {
 
     @Test
     public void userCanLoginByUsername() {
-        open("https://rozetka.com.ua/ua/");
+        open("****");
         if ($("main-page-sidebar a[href='https://rozetka.com.ua/telefony-tv-i-ehlektronika/c4627949/']").isDisplayed()) {
             $("main-page-sidebar a[href='https://rozetka.com.ua/telefony-tv-i-ehlektronika/c4627949/']").click();
         } else {
