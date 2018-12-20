@@ -3,10 +3,15 @@ package rozetka.autotest;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Configuration;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.BeforeClass;
 import org.openqa.selenium.By;
+import rozetka.autotest.support.Custom;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.codeborne.selenide.Condition.attribute;
@@ -26,7 +31,9 @@ public class ThirdTest {
     }
 
     @Test
-    public void userCanLoginByUsername() {
+    public void userCanLoginByUsername() throws IOException {
+        boolean sendEmailStatus;
+
         open("https://rozetka.com.ua/ua/");
         if ($("main-page-sidebar a[href='https://rozetka.com.ua/telefony-tv-i-ehlektronika/c4627949/']").isDisplayed()) {
             $("main-page-sidebar a[href='https://rozetka.com.ua/telefony-tv-i-ehlektronika/c4627949/']").click();
@@ -40,13 +47,20 @@ public class ThirdTest {
         }
         $(".g-i-more-link").shouldBe(visible).click(); // 2
         $(".g-i-more-link").shouldNotBe(attribute("class", "run-animation")).click();// 3
-        List mostPopular = $$(By.xpath("//*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//*[contains(@class, 'g-i-tile-i-title')] | //*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//div[@class='g-price-uah']")).texts();
+        Object[] mostPopular = $$(By.xpath("//*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//*[contains(@class, 'g-i-tile-i-title')] | //*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//div[@class='g-price-uah']")).texts().toArray();
         $(".g-i-more-link").shouldNotBe(attribute("class", "run-animation")).click();// 4
         $(".g-i-more-link").shouldNotBe(attribute("class", "run-animation")).click();// 5
         $$(".g-i-tile-i-title a").shouldHave(CollectionCondition.size(160));
-        List priceRange = $$(By.xpath("//*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//*[contains(@class, 'g-i-tile-i-title')] | //*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//div[@class='g-price-uah']")).texts();
 
-        System.out.println(mostPopular);
+        Object[] priceRange = $$(By.xpath("//*[contains(@class, 'g-i-tile-i-title')] | //div[@class='g-price-uah']")).texts().toArray();
+
+        String[][] resultMostPopular = Custom.getArrayProducts(mostPopular, false, 0, 0);
+        String[][] resultPriseRange = Custom.getArrayProducts(priceRange, true, 3000, 6000);
+
+        Custom.writeToExcel(resultPriseRange, resultMostPopular);
+        sendEmailStatus = Custom.sendEmail("workbook.xlsx");
+
+        Assert.assertEquals(true, sendEmailStatus);
     }
 
     @AfterClass

@@ -45,7 +45,7 @@ public class FirstTest {
 
         deleteFileStatus = Custom.deleteFile();
         writeToFileStatus = Custom.writeToFile(firstPage);
-        sendEmailStatus = Custom.sendEmail();
+        sendEmailStatus = Custom.sendEmail("MyFile.txt");
 
         Assert.assertEquals(true, deleteFileStatus);
         Assert.assertEquals(true, writeToFileStatus);

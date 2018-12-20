@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMultipart;
 
 public class SendMail {
 
-    public static boolean main() {
+    public static boolean send(String setFileName) {
 
         final String username = "ruslanmail1996@gmail.com";
         final String password = "******";
@@ -45,11 +45,11 @@ public class SendMail {
             Multipart multipart = new MimeMultipart();
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();
-            String file = "MyFile.txt";
-            String fileName = "MyFile.txt";
-            DataSource source = new FileDataSource(file);
+            //String file = setFileName;
+            //String fileName = setFileName;
+            DataSource source = new FileDataSource(setFileName);
             messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(fileName);
+            messageBodyPart.setFileName(setFileName);
             multipart.addBodyPart(messageBodyPart);
 
             message.setContent(multipart);
