@@ -45,7 +45,7 @@ public class Custom {
     }
 
 
-    public static void writeToExcel(String[][] productsFirstSheet, String[][] productsSecondSheet) throws IOException {
+    public static void writeToExcel(String[][] productsFirstSheet) throws IOException {
         Workbook workbook = new SXSSFWorkbook();
 
         Sheet sheet1 = workbook.createSheet("Products");
@@ -60,7 +60,7 @@ public class Custom {
             }
         }
 
-        Sheet sheet2 = workbook.createSheet("MostPopular");
+        /*Sheet sheet2 = workbook.createSheet("MostPopular");
         int MostPopularProductsLength = productsSecondSheet.length;
         for(int i = 0; i < MostPopularProductsLength; i++) {
             Row row = sheet2.createRow(i);
@@ -70,7 +70,7 @@ public class Custom {
                 Cell cel2 = row.createCell(j+1);
                 cel2.setCellValue(productsSecondSheet[i][j+1]);
             }
-        }
+        }*/
 
         // Voila!
         FileOutputStream out = new FileOutputStream("workbook.xlsx");

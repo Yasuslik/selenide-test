@@ -57,10 +57,10 @@ public class ThirdTest {
         String[][] resultMostPopular = Custom.getArrayProducts(mostPopular, false, 0, 0);
         String[][] resultPriseRange = Custom.getArrayProducts(priceRange, true, 3000, 6000);
 
-        Custom.writeToExcel(resultPriseRange, resultMostPopular);
-        sendEmailStatus = Custom.sendEmail("workbook.xlsx");
+        //Custom.writeToExcel(resultPriseRange, resultMostPopular);
+        //sendEmailStatus = Custom.sendEmail("workbook.xlsx");
 
-        Assert.assertEquals(true, sendEmailStatus);
+        //Assert.assertEquals(true, sendEmailStatus);
     }
 
     @AfterClass
