@@ -1,6 +1,5 @@
 package rozetka.autotest.support;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -36,7 +35,7 @@ public class DB {
                 if (con != null) {
                     posted = con.prepareStatement("INSERT INTO products (name, price) values (?, ?)");
                     posted.setString(1, product.get(0));
-                    posted.setString(2, product.get(1));
+                    posted.setInt(2, Integer.parseInt(product.get(1)));
                     posted.executeUpdate();
                 }
             }

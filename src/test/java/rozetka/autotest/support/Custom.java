@@ -1,6 +1,5 @@
 package rozetka.autotest.support;
 
-import org.apache.poi.ss.formula.functions.Column;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -8,11 +7,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public class Custom {
@@ -45,32 +40,31 @@ public class Custom {
     }
 
 
-    public static void writeToExcel(String[][] productsFirstSheet) throws IOException {
+    public static void writeToExcel(List<ArrayList<String>> productsFirstSheet, List<ArrayList<String>> productsSecondSheet) throws IOException {
         Workbook workbook = new SXSSFWorkbook();
+        int i = 0, j = 0;
 
-        Sheet sheet1 = workbook.createSheet("Products");
-        int productsLength = productsFirstSheet.length;
-        for(int i = 0; i < productsLength; i++) {
-            Row row = sheet1.createRow(i);
-            for(int j = 0; j < 1; j++){
-                Cell cell = row.createCell(j);
-                cell.setCellValue(productsFirstSheet[i][j]);
-                Cell cel2 = row.createCell(j+1);
-                cel2.setCellValue(productsFirstSheet[i][j+1]);
-            }
+        Sheet firstSheet = workbook.createSheet("Products");
+        for(List<String> product : productsFirstSheet){
+            Row row = firstSheet.createRow(i);
+
+            Cell cell = row.createCell(0);
+            cell.setCellValue(product.get(0));
+            Cell cel2 = row.createCell(1);
+            cel2.setCellValue(Integer.parseInt(product.get(1).replace(" ", "")));
+            i++;
         }
 
-        /*Sheet sheet2 = workbook.createSheet("MostPopular");
-        int MostPopularProductsLength = productsSecondSheet.length;
-        for(int i = 0; i < MostPopularProductsLength; i++) {
-            Row row = sheet2.createRow(i);
-            for(int j = 0; j < 1; j++){
-                Cell cell = row.createCell(j);
-                cell.setCellValue(productsSecondSheet[i][j]);
-                Cell cel2 = row.createCell(j+1);
-                cel2.setCellValue(productsSecondSheet[i][j+1]);
-            }
-        }*/
+        Sheet secondSheat = workbook.createSheet("MostPopular");
+        for(List<String> product : productsSecondSheet){
+            Row row = secondSheat.createRow(j);
+
+            Cell cell = row.createCell(0);
+            cell.setCellValue(product.get(0));
+            Cell cel2 = row.createCell(1);
+            cel2.setCellValue(Integer.parseInt(product.get(1).replace(" ", "")));
+            j++;
+        }
 
         // Voila!
         FileOutputStream out = new FileOutputStream("workbook.xlsx");
@@ -92,7 +86,7 @@ public class Custom {
             price = price.replace("]", "");
             if (rangePrice) {
                 int result = Integer.parseInt(price);
-                if (result > min && result < max) {
+                if (result >= min && result <= max) {
                     resultProductsList[step][0] = arrayProductAndPrice[0];
                     resultProductsList[step][1] = price;
                     step++;
@@ -109,22 +103,35 @@ public class Custom {
     }
 
     public static List getArrayProductsTest(List arrayProducts, boolean rangePrice, int min, int max){
+        String products;
+
+        for (int i=0; i < arrayProducts.size(); i++) {
+            products = arrayProducts.get(i).toString();
+            products = products.replace(" грн", "");
+            products = products.replace(", ", " ");
+            arrayProducts.set(i, products);
+        }
+
         ArrayList<ArrayList<String>> resultProducts = new ArrayList<>();
 
         for (int i=0; i < arrayProducts.size()/2; i++) {
             int result = Integer.parseInt(arrayProducts.get(i*2+1).toString().replace(" ", ""));
             if (rangePrice) {
-                if (result > min && result < max) {
+                if (result >= min && result <= max) {
                     ArrayList<String> singleProduct = new ArrayList<>();
                     singleProduct.add(arrayProducts.get(i * 2).toString());
-                    singleProduct.add(arrayProducts.get(i * 2 + 1).toString());
+                    singleProduct.add(arrayProducts.get(i * 2 + 1).toString().replace(" ", ""));
                     resultProducts.add(singleProduct);
+                    resultProducts.sort(Comparator.comparing(e -> Integer.valueOf(e.get(1).replace(" ", ""))));
+                    Collections.reverse(resultProducts);
                 }
             } else {
                 ArrayList<String> singleProduct = new ArrayList<>();
                 singleProduct.add(arrayProducts.get(i*2).toString());
                 singleProduct.add(arrayProducts.get(i*2+1).toString());
                 resultProducts.add(singleProduct);
+                resultProducts.sort(Comparator.comparing(e -> Integer.valueOf(e.get(1).replace(" ", ""))));
+                Collections.reverse(resultProducts);
             }
         }
         return resultProducts;
