@@ -15,8 +15,8 @@ public class SendMail {
 
     public static boolean send(String setFileName) {
 
-        final String username = "ruslanmail1996@gmail.com";
-        final String password = "******";
+        final String username = "l.kogema@gmail.com";
+        final String password = "tabren31";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
