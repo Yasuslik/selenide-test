@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SeleniumTest" verbose="1">
+    <test name="RozetkaTest">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="rozetka.autotest.ThirdTest" />
+            <class name="rozetka.autotest.SecondTest" />
+            <class name="rozetka.autotest.FirstTest" />
+        </classes>
+    </test>
+</suite>
+
+
+
