@@ -109,13 +109,14 @@ public class Custom {
             products = arrayProducts.get(i).toString();
             products = products.replace(" грн", "");
             products = products.replace(" грн", "");
+            System.out.println(products);
             arrayProducts.set(i, products);
         }
 
         ArrayList<ArrayList<String>> resultProducts = new ArrayList<>();
 
         for (int i=0; i < arrayProducts.size()/2; i++) {
-            //System.out.println(arrayProducts.get(i*2+1).toString());
+            System.out.println(arrayProducts.get(i*2+1).toString());
             int result = Integer.parseInt(arrayProducts.get(i*2+1).toString().replace(" ", "").replace(" грн", ""));
             if (rangePrice) {
                 if (result >= min && result <= max) {
