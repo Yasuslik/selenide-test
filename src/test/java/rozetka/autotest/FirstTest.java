@@ -9,6 +9,8 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import rozetka.autotest.pageObject.CategoryPage;
+import rozetka.autotest.pageObject.MainPage;
 import rozetka.autotest.support.Custom;
 
 import java.util.List;
@@ -25,23 +27,21 @@ public class FirstTest {
     public static void setUp() {
         Configuration.browser="chrome";
         Configuration.startMaximized=true;
+        Configuration.baseUrl = "https://rozetka.com.ua/";
     }
 
     @Test
     public void userCanLoginByUsername() {
         boolean deleteFileStatus, writeToFileStatus, sendEmailStatus;
 
-        open("https://rozetka.com.ua/ua/");
-        if ($("main-page-sidebar a[href='https://rozetka.com.ua/telefony-tv-i-ehlektronika/c4627949/']").isDisplayed()) {
-            $("main-page-sidebar a[href='https://rozetka.com.ua/telefony-tv-i-ehlektronika/c4627949/']").click();
-        } else {
-            $("li[menu_id='3361']").hover().click();
-        }
-        $(".pab-table p a[href='https://rozetka.com.ua/telefony/c4627900/']").click();
-        $("a[href='https://rozetka.com.ua/mobile-phones/c80003/filter/preset=smartfon/']").click();
-        $(".g-i-more-link").shouldBe(visible).click();
-        $(".g-i-more-link").shouldNotBe(attribute("class", "run-animation")).click();
-        List firstPage = $$(".g-i-tile-i-title a").shouldHave(CollectionCondition.size(96)).texts();
+        MainPage mainPage = new MainPage();
+        CategoryPage categoryPage = new CategoryPage();
+
+        mainPage.open();
+        mainPage.navigateToSmartphones();
+
+        categoryPage.getMoreProductsList(2);
+        List firstPage = categoryPage.getProductsName(3);
 
         deleteFileStatus = Custom.deleteFile();
         writeToFileStatus = Custom.writeToFile(firstPage);

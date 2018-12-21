@@ -115,6 +115,7 @@ public class Custom {
         ArrayList<ArrayList<String>> resultProducts = new ArrayList<>();
 
         for (int i=0; i < arrayProducts.size()/2; i++) {
+            System.out.println(arrayProducts.get(i*2+1).toString().replace(" ", ""));
             int result = Integer.parseInt(arrayProducts.get(i*2+1).toString().replace(" ", ""));
             if (rangePrice) {
                 if (result >= min && result <= max) {
