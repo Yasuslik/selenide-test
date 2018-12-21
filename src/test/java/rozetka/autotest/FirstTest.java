@@ -49,9 +49,9 @@ public class FirstTest {
         Assert.assertEquals(true, sendEmailStatus);
     }
 
-    @AfterClass
+    /*@AfterClass
     public static void logout() {
         closeWebDriver();
-    }
+    }*/
 
 }

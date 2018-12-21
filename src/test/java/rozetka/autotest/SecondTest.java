@@ -45,9 +45,9 @@ public class SecondTest {
         }
     }
 
-    @AfterClass
+    /*@AfterClass
     public static void logout() {
         closeWebDriver();
-    }
+    }*/
 
 }
