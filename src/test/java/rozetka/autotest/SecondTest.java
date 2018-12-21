@@ -34,8 +34,6 @@ public class SecondTest {
 
     @Test
     public void userCanLoginByUsername() throws IOException, InterruptedException {
-        boolean sendEmailStatus;
-        String products;
 
         open("https://rozetka.com.ua/ua/");
 
@@ -61,14 +59,6 @@ public class SecondTest {
         $$(".g-i-tile-i-title a").shouldHave(CollectionCondition.size(160));
         List priceRange = $$(By.xpath("//*[contains(@class, 'g-i-tile-i-title')] | //div[@class='g-price-uah']")).texts();
 
-        for (int i=0; i < priceRange.size(); i++) {
-            products = priceRange.get(i).toString();
-            products = products.replace(" грн", "");
-            products = products.replace(", ", " ");
-            priceRange.set(i, products);
-        }
-
-        Object[] result = priceRange.toArray();
         //String[][] resultMostPopular = Custom.getArrayProducts(result, true, 100, 300);
         List resultMostPopular = Custom.getArrayProductsTest(priceRange, true, 100, 300);
 

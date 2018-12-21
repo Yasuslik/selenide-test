@@ -10,8 +10,6 @@ import org.openqa.selenium.By;
 import rozetka.autotest.support.Custom;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.codeborne.selenide.Condition.attribute;
@@ -47,20 +45,20 @@ public class ThirdTest {
         }
         $(".g-i-more-link").shouldBe(visible).click(); // 2
         $(".g-i-more-link").shouldNotBe(attribute("class", "run-animation")).click();// 3
-        Object[] mostPopular = $$(By.xpath("//*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//*[contains(@class, 'g-i-tile-i-title')] | //*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//div[@class='g-price-uah']")).texts().toArray();
+        List mostPopular = $$(By.xpath("//*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//*[contains(@class, 'g-i-tile-i-title')] | //*[contains(@class, 'g-tag-icon-small-popularity')]/../../..//div[@class='g-price-uah']")).texts();
         $(".g-i-more-link").shouldNotBe(attribute("class", "run-animation")).click();// 4
         $(".g-i-more-link").shouldNotBe(attribute("class", "run-animation")).click();// 5
         $$(".g-i-tile-i-title a").shouldHave(CollectionCondition.size(160));
 
-        Object[] priceRange = $$(By.xpath("//*[contains(@class, 'g-i-tile-i-title')] | //div[@class='g-price-uah']")).texts().toArray();
+        List priceRange = $$(By.xpath("//*[contains(@class, 'g-i-tile-i-title')] | //div[@class='g-price-uah']")).texts();
 
-        String[][] resultMostPopular = Custom.getArrayProducts(mostPopular, false, 0, 0);
-        String[][] resultPriseRange = Custom.getArrayProducts(priceRange, true, 3000, 6000);
+        List resultMostPopular = Custom.getArrayProductsTest(mostPopular, false, 0, 0);
+        List resultPriseRange = Custom.getArrayProductsTest(priceRange, true, 3000, 6000);
 
-        //Custom.writeToExcel(resultPriseRange, resultMostPopular);
-        //sendEmailStatus = Custom.sendEmail("workbook.xlsx");
+        Custom.writeToExcel(resultPriseRange, resultMostPopular);
+        sendEmailStatus = Custom.sendEmail("workbook.xlsx");
 
-        //Assert.assertEquals(true, sendEmailStatus);
+        Assert.assertEquals(true, sendEmailStatus);
     }
 
     @AfterClass
