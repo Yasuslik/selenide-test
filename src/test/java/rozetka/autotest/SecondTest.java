@@ -61,7 +61,7 @@ public class SecondTest {
         $$(".g-i-tile-i-title a").shouldHave(CollectionCondition.size(160));
         List priceRange = $$(By.xpath("//*[contains(@class, 'g-i-tile-i-title')] | //div[@class='g-price-uah']")).texts();
 
-        for (int i=0; i<priceRange.size(); i++) {
+        for (int i=0; i < priceRange.size(); i++) {
             products = priceRange.get(i).toString();
             products = products.replace(" грн", "");
             products = products.replace(", ", " ");
@@ -69,8 +69,8 @@ public class SecondTest {
         }
 
         Object[] result = priceRange.toArray();
-        String[][] resultMostPopular = Custom.getArrayProducts(result, true, 100, 300);
-
+        //String[][] resultMostPopular = Custom.getArrayProducts(result, true, 100, 300);
+        List resultMostPopular = Custom.getArrayProductsTest(priceRange, true, 100, 300);
 
         try {
             DB.post(resultMostPopular);

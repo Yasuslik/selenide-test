@@ -82,8 +82,8 @@ public class Custom {
         int chunk = 2;
         int step = 0;
         int productsNameAndPriceLength = arrayProduct.length / 2;
-        String[][] resultProductsList = new String[productsNameAndPriceLength][2];
-        for(int i=0;i<arrayProduct.length;i+=chunk){
+        String[][] resultProductsList = new String[90][2];
+        for(int i=0; i < arrayProduct.length; i += chunk){
             String productAndPrice = Arrays.toString(Arrays.copyOfRange(arrayProduct, i, Math.min(arrayProduct.length,i+chunk)));
             String priceOnly = productAndPrice.replace(" грн", "");
             String[] arrayProductAndPrice = priceOnly.split(", ");
@@ -96,6 +96,8 @@ public class Custom {
                     resultProductsList[step][0] = arrayProductAndPrice[0];
                     resultProductsList[step][1] = price;
                     step++;
+                    System.out.println(arrayProductAndPrice[0]);
+                    System.out.println(resultProductsList[step][1]);
                 }
             }else{
                 resultProductsList[step][0] = arrayProductAndPrice[0];
@@ -104,6 +106,28 @@ public class Custom {
             }
         }
         return resultProductsList;
+    }
+
+    public static List getArrayProductsTest(List arrayProducts, boolean rangePrice, int min, int max){
+        ArrayList<ArrayList<String>> resultProducts = new ArrayList<>();
+
+        for (int i=0; i < arrayProducts.size()/2; i++) {
+            int result = Integer.parseInt(arrayProducts.get(i*2+1).toString().replace(" ", ""));
+            if (rangePrice) {
+                if (result > min && result < max) {
+                    ArrayList<String> singleProduct = new ArrayList<>();
+                    singleProduct.add(arrayProducts.get(i * 2).toString());
+                    singleProduct.add(arrayProducts.get(i * 2 + 1).toString());
+                    resultProducts.add(singleProduct);
+                }
+            } else {
+                ArrayList<String> singleProduct = new ArrayList<>();
+                singleProduct.add(arrayProducts.get(i*2).toString());
+                singleProduct.add(arrayProducts.get(i*2+1).toString());
+                resultProducts.add(singleProduct);
+            }
+        }
+        return resultProducts;
     }
 
 }

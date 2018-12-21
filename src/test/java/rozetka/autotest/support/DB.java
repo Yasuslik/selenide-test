@@ -1,8 +1,11 @@
 package rozetka.autotest.support;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DB {
@@ -11,7 +14,6 @@ public class DB {
         try{
             String driver = "com.mysql.jdbc.Driver";
             String url = "jdbc:mysql://127.0.0.1:3306/JavaDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-            //jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
             String username = "root";
             String password = "";
             Class.forName(driver);
@@ -25,17 +27,16 @@ public class DB {
         return null;
     }
 
-    public static void post(String[][] products) throws Exception{
+    public static void post(List<ArrayList<String>> products) throws Exception{
         Connection con = getConnection();
         PreparedStatement posted = null;
 
         try{
-            for (String[] product : products) {
+            for (List<String> product : products) {
                 if (con != null) {
-                    posted = con.prepareStatement("INSERT INTO products (name, price) VALUES ('" + product[0] + "', '" + product[1] + "')");
-                }
-
-                if (posted != null) {
+                    posted = con.prepareStatement("INSERT INTO products (name, price) values (?, ?)");
+                    posted.setString(1, product.get(0));
+                    posted.setString(2, product.get(1));
                     posted.executeUpdate();
                 }
             }
