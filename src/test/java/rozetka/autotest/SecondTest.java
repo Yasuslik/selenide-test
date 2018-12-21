@@ -19,8 +19,10 @@ public class SecondTest {
 
     @BeforeClass
     public static void setUp() {
+
         Configuration.browser="chrome";
-        Configuration.startMaximized=true;
+        Configuration.browserSize = "1980x1080";
+        //Configuration.startMaximized=true;
         Configuration.baseUrl = "https://rozetka.com.ua/";
 
     }
