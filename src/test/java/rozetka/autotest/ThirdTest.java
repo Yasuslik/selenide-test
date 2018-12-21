@@ -20,7 +20,8 @@ public class ThirdTest {
     @BeforeClass
     public static void setUp() {
         Configuration.browser="chrome";
-        Configuration.startMaximized=true;
+        Configuration.browserSize = "1980x1080";
+        //Configuration.startMaximized=true;
         Configuration.baseUrl = "https://rozetka.com.ua/";
     }
 
@@ -49,8 +50,8 @@ public class ThirdTest {
         Assert.assertEquals(true, sendEmailStatus);
     }
 
-    @AfterClass
+    /*@AfterClass
     public static void logout() {
         closeWebDriver();
-    }
+    }*/
 }
