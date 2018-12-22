@@ -65,7 +65,6 @@ public class Custom {
             j++;
         }
 
-        // Voila!
         FileOutputStream out = new FileOutputStream("workbook.xlsx");
         workbook.write(out);
         out.close();
@@ -75,7 +74,6 @@ public class Custom {
         ArrayList<ArrayList<String>> resultProducts = new ArrayList<>();
 
         for (int i=0; i < arrayProducts.size()/2; i++) {
-            System.out.println(arrayProducts.get(i*2+1).toString());
             int result = Integer.valueOf(arrayProducts.get(i*2+1).toString().replaceAll("[^\\d.]", ""));
             if (rangePrice) {
                 if (result >= min && result <= max) {
