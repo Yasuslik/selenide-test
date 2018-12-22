@@ -109,6 +109,8 @@ public class Custom {
             products = arrayProducts.get(i).toString();
             products = products.replace(" грн", "");
             products = products.replace("?грн", "");
+            products = products.replace(" грн", "");
+            products = products.replace("грн", "");
             System.out.println(products);
             arrayProducts.set(i, products);
         }
