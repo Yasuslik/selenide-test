@@ -61,6 +61,4 @@ public class CategoryPage extends MainPage {
         productsBoxElements.shouldHave(CollectionCondition.size(countProducts));
         return getMostPopularProductNameAndPriceElements.texts();
     }
-
-
 }

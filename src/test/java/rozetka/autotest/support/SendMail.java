@@ -45,8 +45,6 @@ public class SendMail {
             Multipart multipart = new MimeMultipart();
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();
-            //String file = setFileName;
-            //String fileName = setFileName;
             DataSource source = new FileDataSource(setFileName);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(setFileName);

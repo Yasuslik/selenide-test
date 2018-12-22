@@ -39,7 +39,6 @@ public class Custom {
         return SendMail.send(setFileName);
     }
 
-
     public static void writeToExcel(List<ArrayList<String>> productsFirstSheet, List<ArrayList<String>> productsSecondSheet) throws IOException {
         Workbook workbook = new SXSSFWorkbook();
         int i = 0, j = 0;
@@ -72,69 +71,27 @@ public class Custom {
         out.close();
     }
 
-    public static String[][] getArrayProducts(Object[] arrayProduct, boolean rangePrice, int min, int max){
-        int chunk = 2;
-        int step = 0;
-        int productsNameAndPriceLength = arrayProduct.length / 2;
-        String[][] resultProductsList = new String[90][2];
-        for(int i=0; i < arrayProduct.length; i += chunk){
-            String productAndPrice = Arrays.toString(Arrays.copyOfRange(arrayProduct, i, Math.min(arrayProduct.length,i+chunk)));
-            String priceOnly = productAndPrice.replace(" грн", "");
-            String[] arrayProductAndPrice = priceOnly.split(", ");
-
-            String price = arrayProductAndPrice[1].replace(" ", "");
-            price = price.replace("]", "");
-            if (rangePrice) {
-                int result = Integer.parseInt(price);
-                if (result >= min && result <= max) {
-                    resultProductsList[step][0] = arrayProductAndPrice[0];
-                    resultProductsList[step][1] = price;
-                    step++;
-                    System.out.println(arrayProductAndPrice[0]);
-                    System.out.println(resultProductsList[step][1]);
-                }
-            }else{
-                resultProductsList[step][0] = arrayProductAndPrice[0];
-                resultProductsList[step][1] = price;
-                step++;
-            }
-        }
-        return resultProductsList;
-    }
-
     public static List getArrayProductsTest(List arrayProducts, boolean rangePrice, int min, int max){
-        String products;
-
-        for (int i=0; i < arrayProducts.size(); i++) {
-            products = arrayProducts.get(i).toString();
-            //products = products.replace(" грн", "");
-            //products = products.replace("?грн", "");
-            //products = products.replace(" грн", "");
-            products = products.replaceAll("[^\\d.]", "");
-            System.out.println(products);
-            arrayProducts.set(i, products);
-        }
-
         ArrayList<ArrayList<String>> resultProducts = new ArrayList<>();
 
         for (int i=0; i < arrayProducts.size()/2; i++) {
             System.out.println(arrayProducts.get(i*2+1).toString());
-            int result = Integer.valueOf(arrayProducts.get(i*2+1).toString().replace(" ", "").replace(" грн", ""));
+            int result = Integer.valueOf(arrayProducts.get(i*2+1).toString().replaceAll("[^\\d.]", ""));
             if (rangePrice) {
                 if (result >= min && result <= max) {
                     ArrayList<String> singleProduct = new ArrayList<>();
                     singleProduct.add(arrayProducts.get(i * 2).toString());
-                    singleProduct.add(arrayProducts.get(i * 2 + 1).toString().replace(" ", ""));
+                    singleProduct.add(arrayProducts.get(i * 2 + 1).toString().replaceAll("[^\\d.]", ""));
                     resultProducts.add(singleProduct);
-                    resultProducts.sort(Comparator.comparing(e -> Integer.valueOf(e.get(1).replace(" ", ""))));
+                    resultProducts.sort(Comparator.comparing(e -> Integer.valueOf(e.get(1))));
                     Collections.reverse(resultProducts);
                 }
             } else {
                 ArrayList<String> singleProduct = new ArrayList<>();
                 singleProduct.add(arrayProducts.get(i*2).toString());
-                singleProduct.add(arrayProducts.get(i*2+1).toString());
+                singleProduct.add(arrayProducts.get(i*2+1).toString().replaceAll("[^\\d.]", ""));
                 resultProducts.add(singleProduct);
-                resultProducts.sort(Comparator.comparing(e -> Integer.valueOf(e.get(1).replace(" ", ""))));
+                resultProducts.sort(Comparator.comparing(e -> Integer.valueOf(e.get(1))));
                 Collections.reverse(resultProducts);
             }
         }

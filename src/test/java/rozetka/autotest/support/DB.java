@@ -22,7 +22,6 @@ public class DB {
             return conn;
         } catch(Exception e){System.out.println(e);}
 
-
         return null;
     }
 
