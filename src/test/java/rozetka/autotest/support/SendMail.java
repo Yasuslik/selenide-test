@@ -38,7 +38,7 @@ public class SendMail {
             message.setFrom(new InternetAddress("ruslanmail1996@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(readFromFile()));
-            message.setSubject("Hello");
+            message.setSubject("Rozetka Test Work");
             message.setText("PFA");
 
 
