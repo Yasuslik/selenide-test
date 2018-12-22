@@ -2,7 +2,6 @@ package rozetka.autotest;
 
 
 import com.codeborne.selenide.Configuration;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import rozetka.autotest.pageObject.CategoryPage;
@@ -13,22 +12,18 @@ import rozetka.autotest.support.DB;
 import java.io.IOException;
 import java.util.List;
 
-import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 
 public class SecondTest {
 
     @BeforeClass
     public static void setUp() {
-
         Configuration.browser="chrome";
         Configuration.browserSize = "1980x1080";
-        //Configuration.startMaximized=true;
         Configuration.baseUrl = "https://rozetka.com.ua/";
-
     }
 
     @Test
-    public void userCanLoginByUsername() throws IOException, InterruptedException {
+    public void tryToTest() throws IOException, InterruptedException {
         MainPage mainPage = new MainPage();
         CategoryPage categoryPage = new CategoryPage();
 
@@ -46,10 +41,4 @@ public class SecondTest {
             e.printStackTrace();
         }
     }
-
-    /*@AfterClass
-    public static void logout() {
-        closeWebDriver();
-    }*/
-
 }

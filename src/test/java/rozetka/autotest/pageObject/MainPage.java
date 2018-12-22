@@ -1,18 +1,11 @@
 package rozetka.autotest.pageObject;
 
 
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
 
-import java.util.List;
 
 
 public class MainPage {
@@ -60,6 +53,4 @@ public class MainPage {
         LaundryPowdersLink.click();
         return this;
     }
-
-
 }
